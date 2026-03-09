@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<title>GitHub Issues Tracker</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<nav class="navbar">
+
+<div class="nav-left">
+
+<img src="images/github-logo.png" alt="logo" class="logo">
+
+<h2>GitHub Issues Tracker</h2>
+
+</div>
+
+
+<div class="nav-right">
+
+<input id="searchInput" type="text" placeholder="Search issues">
+
+<button onclick="searchIssues()">Search</button>
+
+</div>
+
+</nav>
+
+
+
+<!-- ISSUE SECTION -->
+
+<section class="issue-section">
+
+<!-- ISSUE HEADER -->
+
+<div class="issue-header">
+
+<div class="header-left">
+
+<img src="images/issues-icon.png" alt="issues">
+
+<div>
+
+<h3 id="issueCount">50 Issues</h3>
+
+<p>Track and manage your project issues</p>
+
+</div>
+
+</div>
+
+
+<div class="header-right">
+
+<span class="open-marker"></span>
+<p>Open</p>
+
+<span class="closed-marker"></span>
+<p>Closed</p>
+
+</div>
+
+</div>
+
+
+
+<!-- TABS -->
+
+<div class="tabs">
+
+<button id="allTab" onclick="changeTab('all')">All</button>
+
+<button id="openTab" onclick="changeTab('open')">Open</button>
+
+<button id="closedTab" onclick="changeTab('closed')">Closed</button>
+
+</div>
+
+
+
+<!-- LOADING SPINNER -->
+
+<div id="spinner" class="spinner hidden"></div>
+
+
+
+<!-- ISSUES GRID -->
+
+<div id="issuesContainer" class="issues-grid">
+
+<!-- cards inserted by JavaScript -->
+
+</div>
+
+</section>
+
+
+
+<!-- MODAL -->
+
+<div id="modal" class="modal hidden">
+
+<div class="modal-content">
+
+<h2 id="mTitle"></h2>
+
+<p id="mDesc"></p>
+
+<p id="mAuthor"></p>
+
+<p id="mPriority"></p>
+
+<p id="mDate"></p>
+
+<button onclick="closeModal()">Close</button>
+
+</div>
+
+</div>
+
+
+
+<script src="app.js"></script>
+
+<script>
+loadIssues("all")
+</script>
+
+</body>
+
+</html>
