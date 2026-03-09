@@ -1,62 +1,117 @@
-const API_URL = "https://mocki.io/v1/0c2e7c5d-9c69-4b49-8a4f-56c7a8e5a123"
-
+const API="https://phi-lab-server.vercel.app/api/v1/lab/issues"
 
 function login(){
 
-const email=document.getElementById("email").value
-const password=document.getElementById("password").value
+let u=document.getElementById("username").value
+let p=document.getElementById("password").value
 
-if(email && password){
+if(u==="admin" && p==="admin123"){
 
-localStorage.setItem("user",email)
+document.getElementById("loginPage").classList.add("hidden")
+document.getElementById("mainPage").classList.remove("hidden")
 
-window.location.href="dashboard.html"
+loadIssues()
 
 }else{
 
-alert("Please enter email and password")
+alert("Wrong credentials")
 
 }
 
 }
 
+async function loadIssues(){
 
-async function loadJobs(){
+const res=await fetch(API)
+const data=await res.json()
 
-const container=document.getElementById("jobsContainer")
+displayIssues(data.data)
 
-if(!container) return
+document.getElementById("issueCount").innerText=data.data.length+" Issues"
 
-try{
+}
 
-const res=await fetch(API_URL)
-const jobs=await res.json()
+function displayIssues(issues){
 
+const container=document.getElementById("issuesContainer")
 container.innerHTML=""
 
-jobs.forEach(job=>{
+issues.forEach(issue=>{
 
-const card=document.createElement("div")
-card.className="job-card"
+let card=document.createElement("div")
+
+card.className="card "+issue.status
 
 card.innerHTML=`
 
-<div class="job-title">${job.title}</div>
-<div class="job-company">${job.company}</div>
-<div class="status ${job.status}">${job.status}</div>
+<h4>${issue.title}</h4>
+<p>${issue.description}</p>
+<p>#${issue.id} by ${issue.author}</p>
+<p>${issue.createdAt}</p>
 
 `
+
+card.onclick=()=>openModal(issue)
 
 container.appendChild(card)
 
 })
 
-}catch(err){
+}
 
-console.log(err)
+function changeTab(type){
+
+document.querySelectorAll(".tabs button").forEach(btn=>btn.classList.remove("active"))
+
+document.getElementById(type+"Tab").classList.add("active")
+
+filterIssues(type)
 
 }
 
+async function filterIssues(type){
+
+const res=await fetch(API)
+const data=await res.json()
+
+let issues=data.data
+
+if(type==="open") issues=issues.filter(i=>i.status==="open")
+if(type==="closed") issues=issues.filter(i=>i.status==="closed")
+
+displayIssues(issues)
+
+document.getElementById("issueCount").innerText=issues.length+" Issues"
+
 }
 
-loadJobs()
+async function searchIssue(){
+
+let text=document.getElementById("searchInput").value
+
+const res=await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${text}`)
+
+const data=await res.json()
+
+displayIssues(data.data)
+
+}
+
+function openModal(issue){
+
+document.getElementById("modal").classList.remove("hidden")
+
+document.getElementById("modalTitle").innerText=issue.title
+document.getElementById("modalDesc").innerText=issue.description
+document.getElementById("modalAuthor").innerText=issue.author
+document.getElementById("modalPriority").innerText=issue.priority
+document.getElementById("modalStatus").innerText=issue.status
+document.getElementById("modalDate").innerText=issue.createdAt
+
+}
+
+function closeModal(){
+
+document.getElementById("modal").classList.add("hidden")
+
+}

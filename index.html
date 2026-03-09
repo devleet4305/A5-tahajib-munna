@@ -1,26 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Login</title>
+
+<title>GitHub Issues Tracker</title>
+
 <link rel="stylesheet" href="style.css">
 </head>
 
-<body class="login-body">
+<body>
 
-<div class="login-container">
+<!-- LOGIN PAGE -->
 
-<h1>Job Tracker</h1>
+<div id="loginPage" class="loginPage">
 
-<input type="email" id="email" placeholder="Email">
-<input type="password" id="password" placeholder="Password">
+<img src="assets/github-logo.png" class="logo">
 
-<button onclick="login()">Login</button>
+<h1>GitHub Issues Tracker</h1>
+<p class="subtitle">Sign in to manage your issues</p>
+
+<input id="username" type="text" placeholder="Enter Username">
+<p class="hint">Default: admin</p>
+
+<input id="password" type="password" placeholder="Enter Password">
+<p class="hint">Default: admin123</p>
+
+<button onclick="login()">Sign In</button>
+
+<div class="demoBox">
+Demo Credentials <br>
+Username: admin <br>
+Password: admin123
+</div>
 
 </div>
 
-<script src="script.js"></script>
+
+
+<!-- MAIN PAGE -->
+
+<div id="mainPage" class="hidden">
+
+<header>
+
+<div class="logoArea">
+<img src="assets/github-logo.png">
+<h2>GitHub Issues Tracker</h2>
+</div>
+
+<div class="searchBox">
+<input id="searchInput" placeholder="Search issues...">
+<button onclick="searchIssue()">Search</button>
+</div>
+
+</header>
+
+
+<section class="tabs">
+
+<button id="allTab" class="active" onclick="changeTab('all')">All</button>
+<button id="openTab" onclick="changeTab('open')">Open</button>
+<button id="closedTab" onclick="changeTab('closed')">Closed</button>
+
+</section>
+
+
+<section class="issuesHeader">
+
+<div>
+<h3 id="issueCount">Issues</h3>
+<p>Track and manage your project issues</p>
+</div>
+
+<div class="legend">
+<span class="openDot"></span> Open
+<span class="closedDot"></span> Closed
+</div>
+
+</section>
+
+
+<section id="issuesContainer" class="issuesGrid"></section>
+
+</div>
+
+
+
+<!-- MODAL -->
+
+<div id="modal" class="modal hidden">
+
+<div class="modalContent">
+
+<h2 id="modalTitle"></h2>
+
+<p id="modalDesc"></p>
+
+<p><b>Author:</b> <span id="modalAuthor"></span></p>
+
+<p><b>Priority:</b> <span id="modalPriority"></span></p>
+
+<p><b>Status:</b> <span id="modalStatus"></span></p>
+
+<p><b>Created:</b> <span id="modalDate"></span></p>
+
+<button onclick="closeModal()">Close</button>
+
+</div>
+
+</div>
+
+<script src="app.js"></script>
 
 </body>
 </html>
