@@ -4,7 +4,7 @@ margin:0;
 background:#f3f5fb;
 }
 
-/* LOGIN */
+
 
 .loginPage{
 width:380px;
@@ -59,7 +59,7 @@ border-radius:6px;
 font-size:14px;
 }
 
-/* MAIN */
+
 
 header{
 display:flex;
@@ -101,7 +101,7 @@ background:#5b2be0;
 color:white;
 }
 
-/* ISSUE HEADER */
+
 
 .issuesHeader{
 display:flex;
@@ -125,7 +125,7 @@ border-radius:50%;
 display:inline-block;
 }
 
-/* GRID */
+
 
 .issuesGrid{
 display:grid;
@@ -134,7 +134,7 @@ gap:20px;
 padding:30px;
 }
 
-/* CARD */
+
 
 .card{
 background:white;
@@ -161,7 +161,6 @@ font-size:13px;
 color:gray;
 }
 
-/* MODAL */
 
 .modal{
 position:fixed;
@@ -184,4 +183,21 @@ border-radius:10px;
 
 .hidden{
 display:none;
+}
+
+
+@media (max-width:576px){
+
+header{
+flex-direction:column;
+}
+
+.issuesGrid{
+grid-template-columns:1fr;
+}
+
+.modalContent{
+width:90%;
+}
+
 }
